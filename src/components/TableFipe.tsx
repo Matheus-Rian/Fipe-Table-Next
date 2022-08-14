@@ -3,12 +3,11 @@ import React, { useState } from "react"
 import { useCarsBrands } from "../hooks/useCarsBrands";
 
 export const TableFipe: React.FC = () => {
-  const [country, setCountry] = useState('');
+  const [brandSelect, setBrandSelect] = useState('');
   const { carsBrands } = useCarsBrands();
-  console.log({ carsBrands });
 
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setCountry(ev.target.value as string);
+  const handleChangeBrand = (ev: React.ChangeEvent<HTMLInputElement>) => {
+    setBrandSelect(ev.target.value as string);
   }
 
   return (
@@ -26,19 +25,25 @@ export const TableFipe: React.FC = () => {
       <TextField
         label='Marca'
         select
-        value={country}
-        onChange={handleChange}
+        value={brandSelect}
+        onChange={handleChangeBrand}
         sx={{ minWidth: 300, marginBottom: '16px', marginTop: '24px' }}
       >
-        <MenuItem value='IN'>India</MenuItem>
-        <MenuItem value='BR'>Brasil</MenuItem>
+        {carsBrands?.map(({ codigo, nome }) => (
+          <MenuItem 
+            key={codigo} 
+            value={codigo}
+          >
+            {nome}
+          </MenuItem>
+        ))}
       </TextField>
 
       <TextField
         label='Select Country'
         select
-        value={country}
-        onChange={handleChange}
+        value={2}
+        onChange={handleChangeBrand}
         sx={{ minWidth: 300, marginBottom: '16px' }}
       >
         <MenuItem value='IN'>India</MenuItem>
