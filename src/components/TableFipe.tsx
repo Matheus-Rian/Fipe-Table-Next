@@ -1,9 +1,11 @@
 import { Box, TextField, MenuItem, Button } from "@mui/material"
 import React, { useState } from "react"
+import { useCarsBrands } from "../hooks/useCarsBrands";
 
 export const TableFipe: React.FC = () => {
   const [country, setCountry] = useState('');
-  console.log({ country });
+  const { carsBrands } = useCarsBrands();
+  console.log({ carsBrands });
 
   const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setCountry(ev.target.value as string);
@@ -22,7 +24,7 @@ export const TableFipe: React.FC = () => {
       }}
     >
       <TextField
-        label='Select Country'
+        label='Marca'
         select
         value={country}
         onChange={handleChange}
