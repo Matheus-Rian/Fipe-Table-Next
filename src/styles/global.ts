@@ -1,6 +1,6 @@
 
 
-import { createGlobalStyle } from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 
 export default createGlobalStyle`
   * {
@@ -19,4 +19,14 @@ export default createGlobalStyle`
   button {
     cursor: pointer;
   }
+`;
+
+export const Container = styled.main`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  margin-top: 48px;
+  padding: 0 16px;
 `;
