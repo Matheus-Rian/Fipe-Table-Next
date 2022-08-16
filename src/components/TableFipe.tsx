@@ -1,14 +1,26 @@
-import { Box, TextField, MenuItem, Button } from "@mui/material"
-import React, { useState } from "react"
-import { useCarsBrands } from "../hooks/useCarsBrands";
+import { Box, Button, SelectChangeEvent } from "@mui/material"
+import React, { useEffect, useState } from "react"
+import { ICarsBrands, useCarsBrands } from "../hooks/useCarsBrands";
+import { SelectFipe } from "./SelectFipe";
 
 export const TableFipe: React.FC = () => {
-  const [brandSelect, setBrandSelect] = useState('');
+  const [brandSelect, setBrandSelect] = useState<string>('');
   const { carsBrands } = useCarsBrands();
+  const [model, setModel] = useState<ICarsBrands>();
+  const [isDisabled, setIsDisabled] = useState(true);
 
-  const handleChangeBrand = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setBrandSelect(ev.target.value as string);
+  const handleChangeBrand = (ev: SelectChangeEvent<string>, child: React.ReactNode) => {
+    setBrandSelect(ev.target.value);
   }
+
+  useEffect(() => {
+    const findCar = carsBrands?.find(el => el.nome === brandSelect);
+
+    if (findCar)
+      setIsDisabled(false);
+
+    setModel(findCar);
+  }, [brandSelect, carsBrands]);
 
   return (
     <Box
@@ -22,33 +34,22 @@ export const TableFipe: React.FC = () => {
         marginTop: '16px',
       }}
     >
-      <TextField
-        label='Marca'
-        select
+      <SelectFipe
+        id="brand-select-label"
+        label="Marca"
         value={brandSelect}
+        selectItens={carsBrands}
         onChange={handleChangeBrand}
-        sx={{ minWidth: 300, marginBottom: '16px', marginTop: '24px' }}
-      >
-        {carsBrands?.map(({ codigo, nome }) => (
-          <MenuItem 
-            key={codigo} 
-            value={codigo}
-          >
-            {nome}
-          </MenuItem>
-        ))}
-      </TextField>
-
-      <TextField
-        label='Select Country'
-        select
-        value={2}
+      />
+  
+      <SelectFipe
+        id="model-select-label"
+        label="Modelo"
+        value={brandSelect}
+        selectItens={carsBrands}
         onChange={handleChangeBrand}
-        sx={{ minWidth: 300, marginBottom: '16px' }}
-      >
-        <MenuItem value='IN'>India</MenuItem>
-        <MenuItem value='BR'>Brasil</MenuItem>
-      </TextField>
+        isDisabled={isDisabled}
+      />
 
       <Button sx={{ marginBottom: '24px' }} variant='contained' disabled>Consultar Preço</Button>
 
