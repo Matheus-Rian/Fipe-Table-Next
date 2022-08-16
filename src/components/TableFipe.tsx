@@ -1,26 +1,33 @@
 import { Box, Button, SelectChangeEvent } from "@mui/material"
 import React, { useEffect, useState } from "react"
-import { ICarsBrands, useCarsBrands } from "../hooks/useCarsBrands";
+import { useCarsBrands } from "../hooks/useCarsBrands";
+import { useCarsModels } from "../hooks/useCarsModels";
 import { SelectFipe } from "./SelectFipe";
 
 export const TableFipe: React.FC = () => {
-  const [brandSelect, setBrandSelect] = useState<string>('');
   const { carsBrands } = useCarsBrands();
-  const [model, setModel] = useState<ICarsBrands>();
+  const { modelsOfCarSelected, setBrandCarSelected } = useCarsModels();
+
+  const [brandSelected, setBrandSelected] = useState<string>('');
+  const [modelSelected, setModelSelected] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState(true);
 
   const handleChangeBrand = (ev: SelectChangeEvent<string>, child: React.ReactNode) => {
-    setBrandSelect(ev.target.value);
+    setBrandSelected(ev.target.value);
+  }
+
+  const handleChangeModel = (ev: SelectChangeEvent<string>, child: React.ReactNode) => {
+    setModelSelected(ev.target.value);
   }
 
   useEffect(() => {
-    const findCar = carsBrands?.find(el => el.nome === brandSelect);
+    const findCar = carsBrands?.find(el => el.nome === brandSelected);
 
-    if (findCar)
+    if (findCar) {
       setIsDisabled(false);
-
-    setModel(findCar);
-  }, [brandSelect, carsBrands]);
+      setBrandCarSelected(findCar);
+    }
+  }, [brandSelected, carsBrands, setBrandCarSelected]);
 
   return (
     <Box
@@ -37,7 +44,7 @@ export const TableFipe: React.FC = () => {
       <SelectFipe
         id="brand-select-label"
         label="Marca"
-        value={brandSelect}
+        value={brandSelected}
         selectItens={carsBrands}
         onChange={handleChangeBrand}
       />
@@ -45,9 +52,9 @@ export const TableFipe: React.FC = () => {
       <SelectFipe
         id="model-select-label"
         label="Modelo"
-        value={brandSelect}
-        selectItens={carsBrands}
-        onChange={handleChangeBrand}
+        value={modelSelected}
+        selectItens={modelsOfCarSelected?.modelos}
+        onChange={handleChangeModel}
         isDisabled={isDisabled}
       />
 
