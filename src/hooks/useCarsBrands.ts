@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import CarsService from "../services/CarsService";
-import { useFetch } from "./useFetch";
 
 export type ICarsBrands = {
   nome: string,
