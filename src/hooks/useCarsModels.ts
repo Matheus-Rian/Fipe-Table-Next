@@ -12,11 +12,12 @@ export const useCarsModels = () => {
   const [modelsOfCarSelected, setModelsOfCarSelected] = useState<ICarsModels>();
 
   useEffect(() => {
-
     async function loadModels() {
       try {
-        const response = await CarsService.listModels(brandCarSelected.codigo);
-        setModelsOfCarSelected(response);
+        if (brandCarSelected.codigo) {
+          const response = await CarsService.listModels(brandCarSelected.codigo);
+          setModelsOfCarSelected(response);
+        }
       } catch (err) {
         console.error(err);
       }
