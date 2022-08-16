@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import CarsService from "../services/CarsService";
 import { useFetch } from "./useFetch";
 
 export type ICarsBrands = {
@@ -6,12 +8,23 @@ export type ICarsBrands = {
 };
 
 export const useCarsBrands = () => {
-  const url = 'https://parallelum.com.br/fipe/api/v1/carros/marcas';
+  const [carsBrands, setCarsBrands] = useState<ICarsBrands[]>();
+  
+  useEffect(() => {
+    async function loadBrands() {
+      try {
+        const response = await CarsService.listBrands();
 
-  const { response, error } = useFetch<ICarsBrands[]>(url);
+        setCarsBrands(response);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+
+    loadBrands();
+  }, [])
 
   return {
-    carsBrands: response,
-    error
+    carsBrands,
   };
 }
