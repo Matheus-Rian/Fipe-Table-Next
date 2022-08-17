@@ -20,6 +20,10 @@ class CarsService {
   async listYears(brandCode: string, modelCode: string): Promise<ICarsBrands[]> {
     return this.httpClient.get(`marcas/${brandCode}/modelos/${modelCode}/anos`);
   }
+
+  async showPriceTableFipe(brandCode: string, modelCode: string, yearCode: string) {
+    return this.httpClient.get(`marcas/${brandCode}/modelos/${modelCode}/anos/${yearCode}`);
+  } 
 }
 
 export default new CarsService();
