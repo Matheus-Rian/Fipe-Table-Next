@@ -13,12 +13,12 @@ class CarsService {
     return this.httpClient.get('marcas');
   }
 
-  async listModels(modelCode: string): Promise<ICarsModels> {
-    return this.httpClient.get(`marcas/${modelCode}/modelos`);
+  async listModels(brandCode: string): Promise<ICarsModels> {
+    return this.httpClient.get(`marcas/${brandCode}/modelos`);
   }
 
-  async listYears(modelCode: string, yearCode: string): Promise<ICarsBrands[]> {
-    return this.httpClient.get(`marcas/${modelCode}/modelos/${yearCode}/anos`);
+  async listYears(brandCode: string, modelCode: string): Promise<ICarsBrands[]> {
+    return this.httpClient.get(`marcas/${brandCode}/modelos/${modelCode}/anos`);
   }
 }
 
