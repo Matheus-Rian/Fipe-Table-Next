@@ -5,6 +5,8 @@ import { ICarsBrands } from "./useCarsBrands";
 
 export const useCarsYears = () => {
   const [yearsOfModelSelected, setYearsOfModelSelected] = useState<ICarsBrands[]>();
+  const [showSelectYear, setShowSelectYear] = useState(false);
+  const [yearSelected, setYearSelected] = useState<string>('');
   const carContext = useContext(CarContext);
 
   const brandSelected = useMemo(() => {
@@ -28,6 +30,10 @@ export const useCarsYears = () => {
 
   return {
     yearsOfModelSelected,
+    yearSelected, 
+    setYearSelected,
+    showSelectYear,
+    setShowSelectYear,
   };
 }
 
