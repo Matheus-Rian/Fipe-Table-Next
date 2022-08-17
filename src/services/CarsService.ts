@@ -17,7 +17,7 @@ class CarsService {
     return this.httpClient.get(`marcas/${modelCode}/modelos`);
   }
 
-  async listYears(modelCode: string, yearCode: string): Promise<ICarsModels> {
+  async listYears(modelCode: string, yearCode: string): Promise<ICarsBrands[]> {
     return this.httpClient.get(`marcas/${modelCode}/modelos/${yearCode}/anos`);
   }
 }
