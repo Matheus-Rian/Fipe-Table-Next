@@ -1,18 +1,21 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useMemo, useState } from "react";
 import { CarContext } from "../contexts/CarContext";
 import CarsService from "../services/CarsService";
 import { ICarsBrands } from "./useCarsBrands";
 
 export const useCarsYears = () => {
-  const [modelCarSelected, setModelCarSelected] = useState<ICarsBrands>({codigo: '', nome: ''});
   const [yearsOfModelSelected, setYearsOfModelSelected] = useState<ICarsBrands[]>();
   const carContext = useContext(CarContext);
 
+  const brandSelected = useMemo(() => {
+    return carContext?.carCodes.brand || '';
+  }, [carContext?.carCodes.brand]);
+
   useEffect(() => {
-    async function loadModels() {
+    async function loadYears() {
       try {
-        if (carContext && carContext.carCodes.brand && carContext.carCodes.model) {
-          const response = await CarsService.listYears(carContext.carCodes.brand, carContext.carCodes.model);
+        if (carContext?.carCodes.model) {
+          const response = await CarsService.listYears(brandSelected, carContext.carCodes.model);
           setYearsOfModelSelected(response);
         }
       } catch (err) {
@@ -20,11 +23,11 @@ export const useCarsYears = () => {
       }
     }
 
-    loadModels();
-  }, [carContext, modelCarSelected]);
+    loadYears();
+  }, [brandSelected, carContext?.carCodes.model]);
 
   return {
     yearsOfModelSelected,
-    setModelCarSelected,
   };
 }
+
