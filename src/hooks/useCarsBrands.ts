@@ -7,6 +7,7 @@ export type ICarsBrands = {
 };
 
 export const useCarsBrands = () => {
+  const [brandSelected, setBrandSelected] = useState<string>('');
   const [carsBrands, setCarsBrands] = useState<ICarsBrands[]>();
   
   useEffect(() => {
@@ -25,5 +26,7 @@ export const useCarsBrands = () => {
 
   return {
     carsBrands,
+    brandSelected, 
+    setBrandSelected,
   };
 }
