@@ -1,5 +1,5 @@
 import { Box, Button, SelectChangeEvent } from "@mui/material"
-import React, { useContext, useState } from "react"
+import React, { useContext } from "react"
 import { CarContext } from "../contexts/CarContext";
 import { useCarsBrands } from "../hooks/useCarsBrands";
 import { useCarsModels } from "../hooks/useCarsModels";
@@ -7,16 +7,13 @@ import { useCarsYears } from "../hooks/useCarsYears";
 import { SelectFipe } from "./SelectFipe";
 
 export const TableFipe: React.FC = () => {
-  const { carsBrands } = useCarsBrands();
-  const { modelsOfCarSelected } = useCarsModels();
-  const { yearsOfModelSelected } = useCarsYears();
-  const [showSelectYear, setShowSelectYear] = useState(false);
   const carContext = useContext(CarContext);
 
-  const [brandSelected, setBrandSelected] = useState<string>('');
-  const [modelSelected, setModelSelected] = useState<string>('');
-  const [yearSelected, setYearSelected] = useState<string>('');
-  const [isDisabled, setIsDisabled] = useState(true);
+  const { carsBrands, brandSelected, setBrandSelected } = useCarsBrands();
+  const { modelsOfCarSelected, modelSelected, setModelSelected, isDisabled, setIsDisabled } = useCarsModels();
+  const { yearsOfModelSelected, yearSelected, setYearSelected, showSelectYear, setShowSelectYear } = useCarsYears();
+
+  const isDisabledButton = !!(brandSelected && modelSelected && yearSelected);
 
   const handleChangeBrand = (ev: SelectChangeEvent<string>, child: React.ReactNode) => {
     setBrandSelected(ev.target.value);
@@ -95,8 +92,13 @@ export const TableFipe: React.FC = () => {
         />
       )}
 
-      <Button sx={{ marginBottom: '24px' }} variant='contained' disabled>Consultar Preço</Button>
-
+      <Button 
+        sx={{ marginBottom: '24px' }} 
+        variant='contained' 
+        disabled={!isDisabledButton}
+      >
+        Consultar Preço
+      </Button>
     </Box>
   )
 }
