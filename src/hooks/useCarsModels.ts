@@ -10,6 +10,9 @@ export type ICarsModels = {
 
 export const useCarsModels = () => {
   const carContext = useContext(CarContext);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const [modelSelected, setModelSelected] = useState<string>('');
+
   const [modelsOfCarSelected, setModelsOfCarSelected] = useState<ICarsModels>();
 
   useEffect(() => {
@@ -29,5 +32,9 @@ export const useCarsModels = () => {
 
   return {
     modelsOfCarSelected,
+    modelSelected,
+    setModelSelected,
+    isDisabled,
+    setIsDisabled
   }
 }
