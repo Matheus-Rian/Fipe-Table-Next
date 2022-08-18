@@ -35,3 +35,27 @@ export const Container = styled.main`
   margin-top: 48px;
   padding: 0 16px;
 `;
+
+export const ContainerResult = styled(Container)`
+  background-color: #DCF5F2;
+  width: 100%;
+  height: 200px;
+
+  gap: 16px;
+  padding: 0;
+  margin: 0;
+
+  .price {
+    background-color: #00A38C;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 30px;
+  }
+
+  span {
+    font-size: 12px;
+    color: #9BA7A2;
+  }
+`;
