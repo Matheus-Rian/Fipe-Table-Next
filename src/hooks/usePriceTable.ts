@@ -13,8 +13,7 @@ export const usePriceTable = () => {
           carContext.carCodes.model,
           carContext.carCodes.year,
         );
-
-        return response;
+        carContext.storeTableFipeResult(response);
       }
     } catch (err) {
       console.error(err);
