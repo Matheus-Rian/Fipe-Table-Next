@@ -4,7 +4,9 @@ import { CarContext } from "../contexts/CarContext";
 import { useCarsBrands } from "../hooks/useCarsBrands";
 import { useCarsModels } from "../hooks/useCarsModels";
 import { useCarsYears } from "../hooks/useCarsYears";
+import { usePriceTable } from "../hooks/usePriceTable";
 import { SelectFipe } from "./SelectFipe";
+import Link from 'next/link';
 
 export const TableFipe: React.FC = () => {
   const carContext = useContext(CarContext);
@@ -12,6 +14,7 @@ export const TableFipe: React.FC = () => {
   const { carsBrands, brandSelected, setBrandSelected } = useCarsBrands();
   const { modelsOfCarSelected, modelSelected, setModelSelected, isDisabled, setIsDisabled } = useCarsModels();
   const { yearsOfModelSelected, yearSelected, setYearSelected, showSelectYear, setShowSelectYear } = useCarsYears();
+  const { submitValues } = usePriceTable();
 
   const isDisabledButton = !!(brandSelected && modelSelected && yearSelected);
 
@@ -38,19 +41,22 @@ export const TableFipe: React.FC = () => {
 
     const findModel = modelsOfCarSelected?.modelos.find(model => model.nome === ev.target.value);
 
-    if (yearSelected) {
+    if (yearSelected)
       carContext?.updateCarCodes({ year: '' });
-    }
 
     if (findModel) {
       carContext?.updateCarCodes({ model: findModel.codigo });
       setShowSelectYear(true);
     }
-
   }
 
   const handleChangeYear = (ev: SelectChangeEvent<string>, child: React.ReactNode) => {
     setYearSelected(ev.target.value);
+
+    const findYear = yearsOfModelSelected?.find(year => year.nome === ev.target.value);
+
+    if (findYear)
+      carContext?.updateCarCodes({ year: findYear.codigo });
   }
 
   return (
@@ -96,8 +102,11 @@ export const TableFipe: React.FC = () => {
         sx={{ marginBottom: '24px' }} 
         variant='contained' 
         disabled={!isDisabledButton}
+        onClick={submitValues}
       >
-        Consultar Preço
+        <Link href="/result">
+          Consultar Preço
+        </Link>
       </Button>
     </Box>
   )
