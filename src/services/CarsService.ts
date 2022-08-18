@@ -1,3 +1,4 @@
+import { TableFipeResult } from '../contexts/CarContext';
 import { ICarsBrands } from '../hooks/useCarsBrands';
 import { ICarsModels } from '../hooks/useCarsModels';
 import HttpClient from './utils/HttpClient';
@@ -21,7 +22,7 @@ class CarsService {
     return this.httpClient.get(`marcas/${brandCode}/modelos/${modelCode}/anos`);
   }
 
-  async showPriceTableFipe(brandCode: string, modelCode: string, yearCode: string) {
+  async showPriceTableFipe(brandCode: string, modelCode: string, yearCode: string): Promise<TableFipeResult> {
     return this.httpClient.get(`marcas/${brandCode}/modelos/${modelCode}/anos/${yearCode}`);
   } 
 }
