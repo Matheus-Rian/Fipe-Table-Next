@@ -1,12 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { CarContext } from "../contexts/CarContext";
+import { ICarsModels } from "../models/carModel";
 import CarsService from "../services/CarsService";
-import { ICarsBrands } from "./useCarsBrands";
-
-export type ICarsModels = {
-  anos: ICarsBrands[];
-  modelos: ICarsBrands[];
-}
 
 export const useCarsModels = () => {
   const carContext = useContext(CarContext);

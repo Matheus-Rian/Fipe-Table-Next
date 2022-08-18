@@ -1,29 +1,5 @@
 import React, { createContext, useState } from "react";
-
-type CarCodes = {
-  brand: string,
-  model: string,
-  year: string,
-}
-
-export type TableFipeResult = {
-  AnoModelo: number,
-  CodigoFipe: string,
-  Combustivel: string,
-  Marca: string,
-  MesReferencia: string,
-  Modelo: string,
-  SiglaCombustivel: string,
-  TipoVeiculo: number
-  Valor: string,
-}
-
-interface ICarContext {
-  carCodes: CarCodes,
-  updateCarCodes: (updateData: Partial<CarCodes>) => void,
-  tableFipeResult: TableFipeResult | null,
-  storeTableFipeResult: (data: TableFipeResult) => void,
-}
+import { CarCodes, ICarContext, TableFipeResult } from "../models/carModel";
 
 export const CarContext = createContext<ICarContext | null>(null);
 
@@ -56,4 +32,4 @@ export const CarContextProvider = ({ children }: { children: React.ReactNode }) 
       {children}
     </CarContext.Provider>
   )
-}
+};

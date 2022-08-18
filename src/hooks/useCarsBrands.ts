@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
+import { ICarsInfo } from "../models/carModel";
 import CarsService from "../services/CarsService";
 
-export type ICarsBrands = {
-  nome: string,
-  codigo: string,
-};
 
 export const useCarsBrands = () => {
   const [brandSelected, setBrandSelected] = useState<string>('');
-  const [carsBrands, setCarsBrands] = useState<ICarsBrands[]>();
+  const [carsBrands, setCarsBrands] = useState<ICarsInfo[]>();
   
   useEffect(() => {
     async function loadBrands() {
