@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from "@mui/material"
-import { ICarsBrands } from "../hooks/useCarsBrands";
+import { ICarsInfo } from "../models/carModel";
 
 interface ISelectProps<T> {
   id: string;
@@ -10,7 +10,7 @@ interface ISelectProps<T> {
   isDisabled?: boolean;
 }
 
-export const SelectFipe = <T extends ICarsBrands[] | undefined>(
+export const SelectFipe = <T extends ICarsInfo[] | undefined>(
   { id, label, value, selectItens, onChange, isDisabled = false }: ISelectProps<T>
 ) => {
 
