@@ -19,6 +19,11 @@ export default createGlobalStyle`
   button {
     cursor: pointer;
   }
+  
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
 `;
 
 export const Container = styled.main`
